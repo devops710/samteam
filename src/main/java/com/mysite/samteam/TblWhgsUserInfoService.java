@@ -31,6 +31,11 @@ public class TblWhgsUserInfoService {
     public List<TblWhgsUserInfo> getAllUsers() {
         return userRepository.findAll();
     }
+
+    public Optional<TblWhgsUserInfo> loginUser(String userId, String password) {
+        return userRepository.findById(userId)
+                .filter(user -> user.getUserPwd().equals(password));
+    }
 }
 
 
