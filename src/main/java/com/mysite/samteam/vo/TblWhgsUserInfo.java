@@ -1,4 +1,4 @@
-package com.mysite.samteam;
+package com.mysite.samteam.vo;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
