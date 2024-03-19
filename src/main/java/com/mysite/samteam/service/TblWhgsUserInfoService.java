@@ -1,5 +1,7 @@
-package com.mysite.samteam;
+package com.mysite.samteam.service;
 
+import com.mysite.samteam.repository.TblWhgsUserInfoRepository;
+import com.mysite.samteam.vo.TblWhgsUserInfo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import java.util.Optional;
