@@ -19,7 +19,19 @@ public class TblWhgsUserInfoService {
     public Optional<TblWhgsUserInfo> loginUser(String userId, String password) {
         return userRepository.findById(userId)
                 .filter(user -> user.getUserPwd().equals(password) && user.getVrfyYn().equals("Y"));
+//                .filter(user -> user.getUserPwd().equals(password));
     }
+
+    public void verifyUser(String userId) {
+        TblWhgsUserInfo user = userRepository.findById(userId).orElse(null);
+        if (user != null) {
+            user.setVrfyYn("Y");
+            userRepository.save(user);
+        }
+    }
+
+
+
 
     public boolean updateUser(String userId, TblWhgsUserInfo updateInfo) {
         Optional<TblWhgsUserInfo> userOptional = userRepository.findById(userId);
