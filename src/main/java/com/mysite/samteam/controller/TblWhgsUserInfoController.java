@@ -1,14 +1,16 @@
 package com.mysite.samteam.controller;
 
-import com.mysite.samteam.vo.TblWhgsUserInfo;
 import com.mysite.samteam.service.TblWhgsUserInfoService;
+import com.mysite.samteam.vo.TblWhgsUserInfo;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
+
 import java.util.Optional;
 
 @RestController
@@ -38,6 +40,14 @@ public class TblWhgsUserInfoController {
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Login failed.");
         }
+    }
+
+
+    @GetMapping("/verify-login")
+    public String verifyLogin(@RequestParam String userId, HttpServletRequest request) {
+        userService.verifyUser(userId);
+        // 추가적인 로그인 성공 처리 로직이 필요하면 여기에 구현
+        return "redirect:/login-success"; // 예를 들어, 로그인 성공 페이지나 홈 페이지로 리다이렉트
     }
 
     @PutMapping("/{userId}")
