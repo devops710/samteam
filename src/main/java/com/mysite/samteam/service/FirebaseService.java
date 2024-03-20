@@ -26,7 +26,9 @@ public class FirebaseService {
     // FirebaseService.java에 추가
     public void sendLoginConfirmationPush(String userId) {
         Optional<FirebaseVO> userToken = firebaseRepository.findById(userId);
+        System.out.println(userToken);
         if (userToken.isPresent()) {
+            System.out.println("토큰있음");
             String token = userToken.get().getToken();
             // 웹 푸시 알림 전송 로직
             Message message = Message.builder()

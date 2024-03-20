@@ -1,27 +1,38 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>사용자 등록</title>
+    <title>Register</title>
 </head>
 <body>
-<h2>사용자 등록</h2>
+<h2>Register</h2>
 <form th:action="@{/register}" method="post">
     <div>
-        <label for="username">아이디:</label>
-        <input type="text" id="username" name="username" required>
+        <label for="userId">User ID:</label>
+        <input type="text" id="userId" name="userId" required>
     </div>
     <div>
-        <label for="password">비밀번호:</label>
-        <input type="password" id="password" name="password" required>
+        <label for="userPwd">Password:</label>
+        <input type="password" id="userPwd" name="userPwd" required>
     </div>
     <div>
-        <label for="email">이메일:</label>
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
+    </div>
+    <div>
+        <label for="email">Email:</label>
         <input type="email" id="email" name="email" required>
     </div>
     <div>
-        <button type="submit">등록</button>
+        <label for="hpNo">Phone Number:</label>
+        <input type="text" id="hpNo" name="hpNo" required>
+    </div>
+    <div>
+        <label for="company">Company:</label>
+        <input type="text" id="company" name="company" required>
+    </div>
+    <div>
+        <button type="submit">Register</button>
     </div>
 </form>
-<script src="/js/firebase.js"></script>
 </body>
 </html>

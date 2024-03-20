@@ -1,23 +1,26 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>로그인</title>
+    <title>Login</title>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-messaging.js"></script>
+    <script src="/js/firebase.js"></script>
 </head>
 <body>
-<h2>로그인</h2>
-<form th:action="@{/login}" method="post">
+<h2>Login</h2>
+<form action="/users/login" method="post">
     <div>
-        <label for="username">아이디:</label>
-        <input type="text" id="username" name="username" required>
+        <label for="userId">User ID:</label>
+        <input type="text" id="userId" name="userId" required>
     </div>
     <div>
-        <label for="password">비밀번호:</label>
+        <label for="password">Password:</label>
         <input type="password" id="password" name="password" required>
     </div>
     <div>
-        <button type="submit">로그인</button>
+        <button type="submit">Login</button>
     </div>
+
+
 </form>
-<script src="/js/firebase.js"></script>
 </body>
 </html>
