@@ -24,17 +24,17 @@ public class FirebaseService {
     }
 
     // FirebaseService.java에 추가
-    public void sendLoginConfirmationPush(String userId) {
-        Optional<FirebaseVO> userToken = firebaseRepository.findById(userId);
-        System.out.println(userToken);
-        if (userToken.isPresent()) {
-            System.out.println("토큰있음");
-            String token = userToken.get().getToken();
+    public void sendAuthenticationRequest(String userId) {
+        Optional<FirebaseVO> firebaseVO = firebaseRepository.findById(userId);
+        System.out.println(firebaseVO);
+        if (firebaseVO.isPresent()) {
+            String token = firebaseVO.get().getToken();
+            System.out.println(token);
             // 웹 푸시 알림 전송 로직
             Message message = Message.builder()
                     .setToken(token)
-                    .putData("action", "LOGIN_CONFIRMATION")
-                    .putData("message", "로그인을 인증해주세요.")
+                    .putData("action", "AUTHENTICATION_REQUEST")
+                    .putData("message", "인증을 완료해주세요.")
                     .build();
 
             try {
