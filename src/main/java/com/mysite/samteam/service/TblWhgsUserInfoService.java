@@ -26,22 +26,15 @@ public class TblWhgsUserInfoService {
 
     public Optional<TblWhgsUserInfo> loginUser(String userId, String password) {
         Optional<TblWhgsUserInfo> userOpt = userRepository.findById(userId);
-        System.out.println(userId);
-        System.out.println(password);
-        System.out.println(userOpt);
         if (userOpt.isPresent()) {
             TblWhgsUserInfo user = userOpt.get();
-            System.out.println(user);
             if (user.getUserPwd().equals(password)) {
-                System.out.println("비번일치");
-                if ("N".equals(user.getVrfyYn())) {
-                    System.out.println("미인증");
-                    // 로그인 절차 보류. 웹 푸시 알림 처리 필요
-                    firebaseService.sendLoginConfirmationPush(userId); // 웹 푸시 알림 전송
-                    System.out.println("구독 요청이 먼저 아닌가요?");
-                    return Optional.empty();
-                }
-                // 인증 상태 'Y'이면 로그인 성공
+//                if ("N".equals(user.getVrfyYn())) {
+//                    // 로그인 절차 보류. 웹 푸시 알림 처리 필요
+//                    firebaseService.sendLoginConfirmationPush(userId); // 웹 푸시 알림 전송
+//                    return Optional.empty();
+//                }
+//                // 인증 상태 'Y'이면 로그인 성공
                 return Optional.of(user);
             }
         }
@@ -64,6 +57,17 @@ public class TblWhgsUserInfoService {
             user.setVrfyYn("Y");
             userRepository.save(user);
         }
+    }
+
+    public boolean updateUserVerification(String userId, String vrfyYn) {
+        Optional<TblWhgsUserInfo> userOptional = userRepository.findById(userId);
+        if (userOptional.isPresent()) {
+            TblWhgsUserInfo user = userOptional.get();
+            user.setVrfyYn(vrfyYn);
+            userRepository.save(user);
+            return true; // 상태 업데이트 성공
+        }
+        return false; // 사용자를 찾지 못함
     }
 
 

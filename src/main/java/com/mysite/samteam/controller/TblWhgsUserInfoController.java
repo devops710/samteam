@@ -12,8 +12,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Optional;
-
 @RestController
 @RequestMapping("/users")
 @RequiredArgsConstructor
@@ -43,29 +41,29 @@ public class TblWhgsUserInfoController {
 //        }
 //    }
 
-    @PostMapping("/login")
-    @Operation(summary = "로그인", description = "사용자 로그인을 진행")
-    @ApiResponse(responseCode = "200", description = "로그인 성공")
-    @ApiResponse(responseCode = "401", description = "로그인 실패")
-    public ResponseEntity<String> loginUser(@RequestParam String userId, @RequestParam String password, HttpSession session) {
-        Optional<TblWhgsUserInfo> userOptional = userService.loginUser(userId, password);
-        System.out.println(userId);
-        System.out.println(password);
-        System.out.println(userOptional);
-        if (userOptional.isPresent()) {
-            System.out.println(userId);
-            TblWhgsUserInfo user = userOptional.get();
-            if ("N".equals(user.getVrfyYn())) {
-                // 클라이언트 사이드에 웹 푸시 알림 구독 요청을 알림
-                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Please complete the verification process.");
-            }
-            session.setAttribute("user", user); // 로그인 성공한 사용자 정보를 세션에 저장
-            return ResponseEntity.ok("Login successful.");
-        } else {
-            System.out.println("실패");
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Login failed.");
-        }
-    }
+//    @PostMapping("/login")
+//    @Operation(summary = "로그인", description = "사용자 로그인을 진행")
+//    @ApiResponse(responseCode = "200", description = "로그인 성공")
+//    @ApiResponse(responseCode = "401", description = "로그인 실패")
+//    public String loginUser(@RequestParam String userId, @RequestParam String password, HttpSession session) {
+//        Optional<TblWhgsUserInfo> userOptional = userService.loginUser(userId, password);
+//        if (userOptional.isPresent()) {
+//            TblWhgsUserInfo user = userOptional.get();
+//            if ("N".equals(user.getVrfyYn())) {
+//                return "redirect:/auth.html";
+//                // 클라이언트 사이드에 웹 푸시 알림 구독 요청을 알림
+//                //return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Please complete the verification process.");
+//            }
+//            session.setAttribute("user", user); // 로그인 성공한 사용자 정보를 세션에 저장
+//            return "redirect:/home.html";
+//            //return ResponseEntity.ok("Login successful.");
+//        } else {
+////            redirectAttributes.addFlashAttribute("loginError", "Invalid userId or password.");
+//            return "redirect:/login.html"; // login.html로 다시 리다이렉션
+////            System.out.println("실패");
+////            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Login failed.");
+//        }
+//    }
 
     @PostMapping("/verify")
     public ResponseEntity<?> verifyUser(@RequestBody VerifyRequest verifyRequest) {

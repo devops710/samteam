@@ -10,9 +10,7 @@
         appId: "1:496815299813:web:01125b6a857d717485080c",
         measurementId: "G-VFGVP34Q6S"
     };
-    console.log("얍");
     firebase.initializeApp(firebaseConfig);
-    console.log("얍");
 
     const messaging = firebase.messaging();
     const urlParams = new URLSearchParams(window.location.search);
@@ -25,20 +23,21 @@
             if (permission === 'granted') {
                 console.log("Notification permission granted.");
                 // 현재 등록 토큰 가져오기
-                getToken(messaging).then((currentToken) => {
+                messaging.getToken().then((currentToken) => {
                     if (currentToken) {
+                        console.log(userId);
                         console.log("Token:", currentToken);
                         // 서버에 사용자의 FCM 토큰을 전송하여 vrfyYn 상태 업데이트 요청
-                        fetch('/api/firebase/token', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                            },
-                            body: JSON.stringify({userId: userId, token: currentToken}),
-                        })
-                            .then(response => response.json())
-                            .then(data => console.log('Verification response:', data))
-                            .catch(error => console.error('Error:', error));
+                            fetch('/api/firebase/token', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                },
+                                body: JSON.stringify({userId: userId, token: currentToken}),
+                            })
+                                .then(response => response.json())
+                                .then(data => console.log('Verification response:', data))
+                                .catch(error => console.error('Error:', error));
                     } else {
                         console.log('No registration token available. Request permission to generate one.');
                     }
